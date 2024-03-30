@@ -1,4 +1,3 @@
-
 import string
 import re
 import random
@@ -10,40 +9,45 @@ special = string.punctuation
 
 try:
     print('Welcome!')
-    print('Would you like to generate or strengthen your passsword')
+    print('Would you like to Generate or Strengthen your password?')
     choice = input()
 
-    if choice == 'Generate':
-      print('how many digits would you like it to be')
-      length = int(input())
+    if choice.lower() == 'generate':
+        print('How many characters would you like it to be?')
+        length = int(input())
   
-      string = lower + upper + num + special
-      password = "".join(random.sample(string, length))
+        characters = lower + upper + num + special
+        password = "".join(random.sample(characters, length))
   
-      print('Your new password is : ', password)
+        print('Your new password is : ', password)
 
-      pass
-
-    elif choice == 'Strengthen':
-       print('enter your password')
-    password = input()
+    elif choice.lower() == 'strengthen':
+        print('Enter your password:')
+        password_input = input()
   
-    if (len(password)) <= 20:
-      print('Consider creating 20 character passwords for optimal strength. ')
+        if len(password_input) <= 20:
+            print('Consider creating 20 character passwords for optimal strength.')
+        
+        if not re.search('[a-z]', password_input):
+            print('You should consider adding some lower case letters to your password.')
+        
+        if not re.search('[A-Z]', password_input):
+            print('You should consider adding some upper case letters to your password.')
+        
+        if not re.search('[0-9]', password_input):
+            print('You should consider adding some numbers to your password.')
+        
+        if not any(c in special for c in password_input):
+            print('You should consider adding some special characters to your password.')
+        
+        if (len(password_input) > 20 and 
+            re.search('[a-z]', password_input) and 
+            re.search('[A-Z]', password_input) and 
+            re.search('[0-9]', password_input) and 
+            any(c in special for c in password_input)):
+            print('Your password is strong!')
     
-    elif not re.search('[a-z]', password):
-      print('You should consider adding some lower case letters in you password')
-    
-    elif not re.search('[A-Z]', password):
-      print('You should consider adding some Upper case letters in your password')
-    
-    elif not re.search('[0-9]', password):
-      print('You should consider adding some numbers to your password')
-
-    elif not any(c in special for c in password):
-      print('You should consider adding some special characters to your password')
-
-    
-    raise ValueError("Invalid choice. Please enter 'Generate' or 'Strengthen'.")
+    else:
+        raise ValueError("Invalid choice. Please enter 'Generate' or 'Strengthen'.")
 except ValueError as err:
     print(err)
