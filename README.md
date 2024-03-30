@@ -1,2 +1,2 @@
-# Password-Generation-and-Checker
+# Password-Strengthener-and-Generator
 A password generator and strengthener 
